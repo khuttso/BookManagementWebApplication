@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "W97+LmWfJkiBEzSbG6zfodPVVjYB2cRzRu/PC6bUr/o=",
+  "Source": "BookManagementWebApplication",
+  "BasePath": "_content/BookManagementWebApplication",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
