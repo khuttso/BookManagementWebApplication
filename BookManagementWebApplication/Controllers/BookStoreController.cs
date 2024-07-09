@@ -150,4 +150,14 @@ public class BookStoreController : ControllerBase
     {
         return _context.Books.Any(e => e.Id == id);
     }
+
+
+
+
+
+    [HttpGet("/Exception")]
+    public IActionResult ThrowException()
+    {
+        throw new Exception("for testing");
+    }
 }

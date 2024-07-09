@@ -129,3 +129,4 @@ C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementWebAp
 C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementWebApplication\bin\Debug\net8.0\Castle.Core.dll
 C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementWebApplication\bin\Debug\net8.0\Microsoft.EntityFrameworkCore.InMemory.dll
 C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementWebApplication\bin\Debug\net8.0\Moq.dll
+C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementWebApplication\obj\Debug\net8.0\BookManagementWebApplication.sourcelink.json

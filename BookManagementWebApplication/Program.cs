@@ -1,5 +1,6 @@
 using BookManagementWebApplication.Services;
 using BookManagementWebApplication.Controllers;
+using BookManagementWebApplication.Middlewares;
 using BookManagementWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,7 +18,6 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddDebug();
 });
 builder.Services.AddScoped<IBookService, BookService>();
-
 /// For Services  
 // builder.Services.AddTransient<BookStoreDatabaseContext>();
 // builder.Services.AddSingleton<Logger<BookService>>();
@@ -36,6 +36,7 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
