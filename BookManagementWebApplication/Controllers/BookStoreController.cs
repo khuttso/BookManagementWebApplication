@@ -2,13 +2,15 @@ using BookManagementWebApplication.Services;
 using BookManagementWebApplication.Data;
 using Microsoft.AspNetCore.Mvc;
 using BookManagementWebApplication.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace BookManagementWebApplication.Controllers;
 
 [ApiController]
-[Route("/api[controller]")]
+[Route("/api/BookStore")]
+[Authorize]
 public class BookStoreController : ControllerBase
 {
     /// <summary>
@@ -54,7 +56,7 @@ public class BookStoreController : ControllerBase
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    [HttpGet("/GetBook/{id}")]
+    [HttpGet("GetBook/{id}")]
     public async Task<ActionResult<Book>> GetBook(int id)
     {
         var getBook = await _bookService.GetBookByIdAsync(id);
@@ -78,7 +80,7 @@ public class BookStoreController : ControllerBase
     /// </summary>
     /// <param name="book"></param>
     /// <returns></returns>
-    [HttpPost("/PostBook")]
+    [HttpPost("PostBook")]
     public async Task<ActionResult<Book>> PostBook(Book book)
     {
         var result = await _bookService.AddBookAsync(book);
@@ -101,7 +103,7 @@ public class BookStoreController : ControllerBase
     /// <param name="id"></param>
     /// <param name="book"></param>
     /// <returns></returns>
-    [HttpPut("/PutBook/{id}")]
+    [HttpPut("PutBook/{id}")]
     public async Task<IActionResult> PutBook(int id, Book book)
     {
         var result = await _bookService.UpdateBookAsync(id, book);
@@ -124,7 +126,7 @@ public class BookStoreController : ControllerBase
     /// <param name="id"></param>
     /// <returns></returns>
     // 
-    [HttpDelete("/DeleteBook/{id}")]
+    [HttpDelete("DeleteBook/{id}")]
     public async Task<IActionResult> DeleteBook(int id)
     {
         var result = await _bookService.DeleteBookAsync(id);

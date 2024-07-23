@@ -142,3 +142,4 @@ C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementTests
 C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementTests\obj\Debug\net8.0\BookManagementTests.pdb
 C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementTests\obj\Debug\net8.0\BookManagementTests.genruntimeconfig.cache
 C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementTests\obj\Debug\net8.0\ref\BookManagementTests.dll
+C:\Users\asusVivo\RiderProjects\BookManagementWebApplication\BookManagementTests\obj\Debug\net8.0\BookManagementTests.sourcelink.json

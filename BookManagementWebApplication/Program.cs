@@ -3,8 +3,43 @@ using BookManagementWebApplication.Controllers;
 using BookManagementWebApplication.Middlewares;
 using BookManagementWebApplication.Data;
 using Microsoft.EntityFrameworkCore;
+using BookManagementWebApplication.Model;
+
+
+// libraries for Jwt authentication
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using BookManagementWebApplication.Repositories;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<UserDatabaseContext>(op => 
+    op.UseInMemoryDatabase("AuthorizationDb"));
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserAuthorizationService, UserAuthorizationService>();
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+
+// Jwt configuration
+var jwtIssuer = builder.Configuration.GetSection("Jwt:Issuer").Get<string>();
+var jwtKey = builder.Configuration.GetSection("Jwt:Key").Get<string>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
+        ValidateIssuerSigningKey = true, 
+        ValidIssuer = jwtIssuer,
+        ValidAudience = jwtIssuer,
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey))
+    };
+});
+
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,10 +53,6 @@ builder.Services.AddLogging(loggingBuilder =>
     loggingBuilder.AddDebug();
 });
 builder.Services.AddScoped<IBookService, BookService>();
-/// For Services  
-// builder.Services.AddTransient<BookStoreDatabaseContext>();
-// builder.Services.AddSingleton<Logger<BookService>>();
-// builder.Services.AddSingleton<IBookService>(new BookService(new BookStoreDatabaseContext(new )));
 
 
 /// Maybe trash
@@ -33,9 +64,14 @@ builder.Services.AddScoped<IBookService, BookService>();
 //         return new BookStoreController(dbContext, loggerForBookStoreController);
 //     }
 // );
+
+
 builder.Services.AddControllers();
 
 var app = builder.Build();
+app.UseHttpsRedirection();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.MapControllers();
 // Configure the HTTP request pipeline.
@@ -45,7 +81,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+
 
 var summaries = new[]
 {
